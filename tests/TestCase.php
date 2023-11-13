@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Centrex\LaravelMessages\Tests;
 
+use Centrex\LaravelMessages\LaravelMessagesServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Centrex\LaravelMessages\LaravelMessagesServiceProvider;
 
 class TestCase extends Orchestra
 {
