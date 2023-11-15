@@ -8,12 +8,13 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('laravel_messages_table', function (Blueprint $table) {
+        Schema::create('participants', function (Blueprint $table) {
             $table->id();
-
-            // add fields
-
+            $table->integer('thread_id')->unsigned()->index();
+            $table->morphs('participant');
+            $table->timestamp('last_read')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 };
