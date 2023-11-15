@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Centrex\LaravelMessages\Commands;
+namespace Centrex\Messages\Commands;
 
 use Illuminate\Console\Command;
 
-class LaravelMessagesCommand extends Command
+class MessagesCommand extends Command
 {
-    public $signature = 'laravel-messages';
+    public $signature = 'messages';
 
     public $description = 'My command';
 

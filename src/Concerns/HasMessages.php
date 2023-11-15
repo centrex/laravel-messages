@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Centrex\LaravelMessages\Concerns;
+namespace Centrex\Messages\Concerns;
 
-use Centrex\LaravelMessages\Models\Message;
-use Centrex\LaravelMessages\Models\Participant;
-use Centrex\LaravelMessages\Models\Thread;
+use Centrex\Messages\Models\Message;
+use Centrex\Messages\Models\Participant;
+use Centrex\Messages\Models\Thread;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 

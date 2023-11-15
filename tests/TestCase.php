@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Centrex\LaravelMessages\Tests;
+namespace Centrex\Messages\Tests;
 
-use Centrex\LaravelMessages\LaravelMessagesServiceProvider;
+use Centrex\Messages\MessagesServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -15,14 +15,14 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Centrex\\LaravelMessages\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Centrex\\Messages\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            LaravelMessagesServiceProvider::class,
+            MessagesServiceProvider::class,
         ];
     }
 

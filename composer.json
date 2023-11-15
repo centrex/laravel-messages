@@ -36,13 +36,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Centrex\\LaravelMessages\\": "src/",
-            "Centrex\\LaravelMessages\\Database\\Factories\\": "database/factories/"
+            "Centrex\\Messages\\": "src/",
+            "Centrex\\Messages\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Centrex\\LaravelMessages\\Tests\\": "tests/",
+            "Centrex\\Messages\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -74,10 +74,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Centrex\\LaravelMessages\\LaravelMessagesServiceProvider"
+                "Centrex\\Messages\\MessagesServiceProvider"
             ],
             "aliases": {
-                "LaravelMessages": "Centrex\\LaravelMessages\\Facades\\LaravelMessages"
+                "Messages": "Centrex\\Messages\\Facades\\Messages"
             }
         }
     },

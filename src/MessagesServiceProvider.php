@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Centrex\LaravelMessages;
+namespace Centrex\Messages;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelMessagesServiceProvider extends ServiceProvider
+class MessagesServiceProvider extends ServiceProvider
 {
     /** Bootstrap the application services. */
     public function boot()
@@ -51,8 +51,8 @@ class LaravelMessagesServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravel-messages');
 
         // Register the main class to use with the facade
-        $this->app->singleton('laravel-messages', function () {
-            return new LaravelMessages;
+        $this->app->singleton('messages', function () {
+            return new Messages;
         });
     }
 }
