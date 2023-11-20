@@ -14,30 +14,30 @@ class MessagesServiceProvider extends ServiceProvider
         /*
          * Optional methods to load your package assets
          */
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-messages');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-messages');
+        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'messages');
+        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'messages');
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('laravel-messages.php'),
-            ], 'config');
+                __DIR__.'/../config/config.php' => config_path('messages.php'),
+            ], 'messages-config');
 
             // Publishing the views.
             /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-messages'),
-            ], 'views');*/
+                __DIR__.'/../resources/views' => resource_path('views/vendor/messages'),
+            ], 'messages-views');*/
 
             // Publishing assets.
             /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/laravel-messages'),
-            ], 'assets');*/
+                __DIR__.'/../resources/assets' => public_path('vendor/messages'),
+            ], 'messages-assets');*/
 
             // Publishing the translation files.
             /*$this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/laravel-messages'),
-            ], 'lang');*/
+                __DIR__.'/../resources/lang' => resource_path('lang/vendor/messages'),
+            ], 'messages-lang');*/
 
             // Registering package commands.
             // $this->commands([]);
@@ -48,7 +48,7 @@ class MessagesServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravel-messages');
+        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'messages');
 
         // Register the main class to use with the facade
         $this->app->singleton('messages', function () {
