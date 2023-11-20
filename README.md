@@ -15,10 +15,9 @@ You can install the package via composer:
 composer require centrex/laravel-messages
 ```
 
-You can publish and run the migrations with:
+You can run the migrations with:
 
 ```bash
-php artisan vendor:publish --tag="messages-migrations"
 php artisan migrate
 ```
 
@@ -26,19 +25,6 @@ You can publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="messages-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="messages-views"
 ```
 
 ## Usage
@@ -70,6 +56,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 - [centrex](https://github.com/centrex)
 - [All Contributors](../../contributors)
+- [bombenprodukt/laravel-messageable](https://github.com/faustbrian/laravel-messageable)
 
 ## License
 
