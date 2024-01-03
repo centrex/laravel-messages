@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Centrex\Messages\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\{Model, ModelNotFoundException, SoftDeletes};
 use Illuminate\Support\Collection;
 
 final class Thread extends Model
@@ -119,7 +117,7 @@ final class Thread extends Model
     public function markAsRead($userId): bool
     {
         try {
-            $participant = $this->getParticipantFromModel($userId);
+            $participant            = $this->getParticipantFromModel($userId);
             $participant->last_read = new Carbon();
             $participant->save();
 

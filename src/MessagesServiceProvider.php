@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Centrex\Messages;
 
@@ -16,12 +16,12 @@ class MessagesServiceProvider extends ServiceProvider
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'messages');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'messages');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('messages.php'),
+                __DIR__ . '/../config/config.php' => config_path('messages.php'),
             ], 'messages-config');
 
             // Publishing the views.
@@ -48,11 +48,11 @@ class MessagesServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'messages');
+        $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'messages');
 
         // Register the main class to use with the facade
         $this->app->singleton('messages', function () {
-            return new Messages;
+            return new Messages();
         });
     }
 }

@@ -1,14 +1,11 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Centrex\Messages\Concerns;
 
-use Centrex\Messages\Models\Message;
-use Centrex\Messages\Models\Participant;
-use Centrex\Messages\Models\Thread;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Centrex\Messages\Models\{Message, Participant, Thread};
+use Illuminate\Database\Eloquent\Relations\{BelongsToMany, MorphMany};
 
 trait HasMessages
 {
@@ -30,7 +27,7 @@ trait HasMessages
     public function threadsWithNewMessages(): array
     {
         $threadsWithNewMessages = [];
-        $participants = Participant::where('participant_id', $this->id)
+        $participants           = Participant::where('participant_id', $this->id)
             ->where('participant_type', \get_class($this))
             ->lists('last_read', 'thread_id');
 
