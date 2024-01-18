@@ -117,7 +117,7 @@ final class Thread extends Model
     public function markAsRead($userId): bool
     {
         try {
-            $participant            = $this->getParticipantFromModel($userId);
+            $participant = $this->getParticipantFromModel($userId);
             $participant->last_read = new Carbon();
             $participant->save();
 
