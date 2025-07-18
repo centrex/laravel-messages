@@ -28,7 +28,7 @@ trait HasMessages
     {
         $threadsWithNewMessages = [];
         $participants = Participant::where('participant_id', $this->id)
-            ->where('participant_type', \get_class($this))
+            ->where('participant_type', $this::class)
             ->lists('last_read', 'thread_id');
 
         if ($participants) {

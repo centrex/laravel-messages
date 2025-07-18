@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 class MessagesServiceProvider extends ServiceProvider
 {
     /** Bootstrap the application services. */
-    public function boot()
+    public function boot(): void
     {
         /*
          * Optional methods to load your package assets
@@ -45,14 +45,12 @@ class MessagesServiceProvider extends ServiceProvider
     }
 
     /** Register the application services. */
-    public function register()
+    public function register(): void
     {
         // Automatically apply the package configuration
         $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'messages');
 
         // Register the main class to use with the facade
-        $this->app->singleton('messages', function () {
-            return new Messages();
-        });
+        $this->app->singleton('messages', fn (): Messages => new Messages());
     }
 }

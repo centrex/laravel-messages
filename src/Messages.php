@@ -4,6 +4,4 @@ declare(strict_types = 1);
 
 namespace Centrex\Messages;
 
-class Messages
-{
-}
+class Messages {}

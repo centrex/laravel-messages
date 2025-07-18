@@ -5,8 +5,8 @@ declare(strict_types = 1);
 namespace Centrex\Messages\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\{Model, ModelNotFoundException, SoftDeletes};
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 final class Thread extends Model
@@ -17,7 +17,7 @@ final class Thread extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    private array $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public static function getAllLatest(): Collection
     {
@@ -122,7 +122,7 @@ final class Thread extends Model
             $participant->save();
 
             return true;
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException) {
             return false;
         }
     }
@@ -135,7 +135,7 @@ final class Thread extends Model
             if ($this->updated_at > $participant->last_read) {
                 return true;
             }
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException) {
             return false;
         }
 
