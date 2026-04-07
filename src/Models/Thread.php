@@ -5,9 +5,8 @@ declare(strict_types = 1);
 namespace Centrex\Messages\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\{Model, ModelNotFoundException, SoftDeletes};
+use Illuminate\Database\Eloquent\{Builder, Model, ModelNotFoundException, SoftDeletes};
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
 
 final class Thread extends Model
 {
@@ -17,9 +16,7 @@ final class Thread extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    private array $dates = ['created_at', 'updated_at', 'deleted_at'];
-
-    public static function getAllLatest(): Collection
+    public static function getAllLatest(): Builder
     {
         return self::latest('updated_at');
     }
@@ -34,9 +31,9 @@ final class Thread extends Model
         return $this->hasMany(Participant::class);
     }
 
-    public function creator(): Model
+    public function creator(): ?Model
     {
-        return $this->messages()->oldest()->first()->creator;
+        return $this->messages()->oldest()->first()?->creator;
     }
 
     public function getLatestMessage(): Message
@@ -48,7 +45,7 @@ final class Thread extends Model
     {
         $participants = $this->participants()
             ->withTrashed()
-            ->lists('participant_id', 'participant_type');
+            ->pluck('participant_id', 'participant_type');
 
         if ($participant) {
             $participants[] = $participant;

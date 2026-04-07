@@ -15,7 +15,9 @@ final class Participant extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    private array $dates = ['created_at', 'updated_at', 'deleted_at', 'last_read'];
+    protected $casts = [
+        'last_read' => 'datetime',
+    ];
 
     public function thread(): BelongsTo
     {

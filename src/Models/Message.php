@@ -6,7 +6,6 @@ namespace Centrex\Messages\Models;
 
 use Illuminate\Database\Eloquent\{Model, SoftDeletes};
 use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany, MorphTo};
-use Illuminate\Support\Collection;
 
 final class Message extends Model
 {
@@ -17,8 +16,6 @@ final class Message extends Model
     protected $touches = ['thread'];
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
-
-    private array $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public function thread(): BelongsTo
     {
@@ -35,7 +32,7 @@ final class Message extends Model
         return $this->hasMany(Participant::class, 'thread_id', 'thread_id');
     }
 
-    public function recipients(): Collection
+    public function recipients(): HasMany
     {
         return $this->participants()
             ->where('participant_id', '!=', $this->participant_id)

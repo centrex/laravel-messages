@@ -29,7 +29,7 @@ trait HasMessages
         $threadsWithNewMessages = [];
         $participants = Participant::where('participant_id', $this->id)
             ->where('participant_type', $this::class)
-            ->lists('last_read', 'thread_id');
+            ->pluck('last_read', 'thread_id');
 
         if ($participants) {
             $threads = Thread::whereIn('id', \array_keys($participants->toArray()))->get();
