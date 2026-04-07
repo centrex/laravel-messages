@@ -1,89 +1,113 @@
-# Manage messages in laravel
+# Manage messages in Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/centrex/laravel-messages.svg?style=flat-square)](https://packagist.org/packages/centrex/laravel-messages)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/centrex/laravel-messages/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/centrex/laravel-messages/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/centrex/laravel-messages/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/centrex/laravel-messages/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/centrex/laravel-messages?style=flat-square)](https://packagist.org/packages/centrex/laravel-messages)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Contents
-
-- [Installation](#installation)
-- [Usage Examples](#usage)
-- [Testing](#testing)
-- [Changelog](#changelog)
-- [Contributing](#contributing)
-- [Credits](#credits)
-- [License](#license)
+Thread-based polymorphic messaging for any Eloquent model. Supports multi-participant conversations, read/unread tracking, and soft-deletes on both threads and messages.
 
 ## Installation
 
-You can install the package via composer:
-
 ```bash
 composer require centrex/laravel-messages
-```
-
-You can run the migrations with:
-
-```bash
+php artisan vendor:publish --tag="laravel-messages-migrations"
 php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="messages-config"
 ```
 
 ## Usage
 
+### 1. Add the trait to your model
+
 ```php
-$laravelMessages = new Centrex\LaravelMessages();
-echo $laravelMessages->echoPhrase('Hello, Centrex!');
+use Centrex\Messages\Concerns\HasMessages;
+
+class User extends Authenticatable
+{
+    use HasMessages;
+}
+```
+
+### 2. Create a thread and add messages
+
+```php
+use Centrex\Messages\Models\Thread;
+
+// Create a new thread
+$thread = Thread::create(['subject' => 'Order inquiry']);
+
+// Add participants
+$thread->addParticipant($user);
+$thread->addParticipant($support);
+// or multiple at once
+$thread->addParticipants([$user, $support, $manager]);
+
+// Post a message
+$thread->addMessage(['body' => 'When will my order ship?'], $user);
+```
+
+### 3. Read threads and messages
+
+```php
+// All threads a user participates in
+$user->threads;
+
+// Threads with unread messages
+Thread::forModelWithNewMessages($user)->get();
+
+// All threads for a participant
+Thread::forModel($user)->get();
+
+// Latest message in a thread
+$thread->getLatestMessage();
+
+// All messages in a thread
+$thread->messages;
+
+// Who started the thread
+$thread->creator();
+```
+
+### 4. Unread tracking
+
+```php
+// Mark thread as read by user
+$thread->markAsRead($user);
+
+// Check if thread has unread messages for user
+$thread->isUnread($user);  // bool
+
+// Count of threads with new messages
+$user->newMessagesCount();
+
+// IDs of threads with new messages
+$user->threadsWithNewMessages();
+```
+
+### 5. Participant management
+
+```php
+$thread->hasParticipant($user);   // bool
+$thread->activateAllParticipants(); // restore soft-deleted participants
 ```
 
 ## Testing
 
-🧹 Keep a modern codebase with **Pint**:
 ```bash
-composer lint
-```
-
-✅ Run refactors using **Rector**
-```bash
-composer refacto
-```
-
-⚗️ Run static analysis using **PHPStan**:
-```bash
-composer test:types
-```
-
-✅ Run unit tests using **PEST**
-```bash
-composer test:unit
-```
-
-🚀 Run the entire test suite:
-```bash
-composer test
+composer test        # full suite
+composer test:unit   # pest only
+composer test:types  # phpstan
+composer lint        # pint
 ```
 
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
 ## Credits
 
 - [centrex](https://github.com/centrex)
 - [All Contributors](../../contributors)
-- [bombenprodukt/laravel-messageable](https://github.com/faustbrian/laravel-messageable)
 
 ## License
 
